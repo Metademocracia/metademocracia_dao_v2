@@ -1,0 +1,91 @@
+type Supply @entity {
+  id: ID!
+  total_daos: BigInt!
+  total_daos_user: [Supplyuser!]! @derivedFrom(field: "supply")
+}
+
+type Supplyuser @entity {
+  id: ID!
+  total_daos: BigInt!
+  supply: Supply!
+}
+
+type Dao @entity {
+  id: ID!
+  wallet_dao: String!
+  owner_id: String!
+  proposal_actives: BigInt!
+  proposal_total: BigInt!
+  proposal_bond: String
+  proposal_period: String
+  total_members: BigInt!
+  creation_date: BigInt!
+  groups: [Group!]! @derivedFrom(field: "dao")
+  members: [Member!]! @derivedFrom(field: "dao")
+}
+
+type Group @entity {
+  id: ID!
+  dao: Dao!
+  group: String!
+  members: [Member!]! @derivedFrom(field: "group")
+}
+
+type Member @entity {
+  id: ID!
+  dao: Dao!
+  group: Group!
+  member: String!
+  votes: BigInt!
+}
+
+
+type Proposal @entity {
+  id: ID!
+  proposal_id: BigInt!
+  title: String!
+  contract_id: String!
+  description: String!
+  proposal_type: String!
+  kind: String!
+  proposer: String!
+  submission_time: BigInt!
+  upvote: BigInt!
+  downvote: BigInt!
+  vote: [Vote!]! @derivedFrom(field: "proposal")
+  status: String!
+  approval_date: BigInt
+  creation_date: BigInt!
+  user_creation: String!
+  link: String!
+}
+
+type Vote @entity {
+  id: ID!
+  proposal: Proposal!
+  user_id: String!
+  vote: String!
+  date_time: BigInt!
+}
+
+
+type Delegation @entity {
+  id: ID!
+  receipt_id: String!
+  contract_id: String!
+  token_id: String!
+  token_decimals: BigInt!
+  date_time: BigInt!
+  predecessor_id: String!
+  receiver_id: String!
+  type_transfer: String!
+  amount: BigInt!
+}
+
+
+type Prueba @entity {
+  id: ID!
+  data1: String!
+  data2: String!
+  data3: String!
+}

@@ -1,0 +1,42 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+features:
+  - ipfsOnEthereumContracts
+dataSources:
+  - kind: near
+    name: near
+    network: near-mainnet
+    source:
+      accounts:
+        suffixes:
+          - organizacion.near
+      startBlock: 113438527
+    mapping:
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Supply
+        - Supplyuser
+        - Dao
+        - Group
+        - Member
+        - Proposal
+        - Vote
+      receiptHandlers:
+        - handler: handleReceipt
+      file: ./src/mapping.ts
+  - kind: near
+    name: toke-usdt
+    network: near-mainnet
+    source:
+      account: "usdt.tether-token.near"
+      startBlock: 113438527
+    mapping:
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Delegation
+      receiptHandlers:
+        - handler: handleReceipt
+      file: ./src/mapping_usdt.ts

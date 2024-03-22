@@ -1,0 +1,24 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+features:
+  - ipfsOnEthereumContracts
+dataSources:
+  - kind: near
+    name: daov2
+    network: near-mainnet
+    source:
+      account: "factory.metademocracia_dao.near"
+      startBlock: 111115364
+    mapping:
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Supply
+        - Suplyuser
+        - Dao
+      receiptHandlers:
+        - handler: handleReceipt
+      file: ./src/mapping_1.ts
+  
+  

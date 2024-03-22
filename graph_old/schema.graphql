@@ -1,0 +1,19 @@
+type Supply @entity {
+  id: ID!
+  total_daos: BigInt!
+  total_daos_user: [Supplyuser!]! @derivedFrom(field: "supply")
+}
+
+type Supplyuser @entity {
+  id: ID!
+  total_daos: BigInt!
+  supply: Supply!
+}
+
+type Dao @entity {
+  id: ID!
+  wallet_dao: String!
+  owner_id: String!
+}
+
+

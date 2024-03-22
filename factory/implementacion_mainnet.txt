@@ -1,0 +1,120 @@
+NEAR_ENV=mainnet near delete factory.metademocracia_dao.near metademocracia_dao.near
+NEAR_ENV=mainnet near create-account factory.metademocracia_dao.near --masterAccount metademocracia_dao.near --initialBalance 25
+
+cargo build --target wasm32-unknown-unknown --release
+NEAR_ENV=mainnet  near deploy --wasmFile target/wasm32-unknown-unknown/release/metadao_factory.wasm --accountId organizacion.near
+
+NEAR_ENV=mainnet near call organizacion.near new --accountId organizacion.near --gas 100000000000000
+
+
+
+
+
+
+
+
+near view pruebas1.factory2.metademocracia.testnet get_config --accountId hrpalencia.testnet
+
+
+
+
+
+
+
+
+
+
+
+
+
+near call daov5.metademocracia.testnet new '{"owner_id": "daov5.metademocracia.testnet", "policy": ''["hpalencia.testnet", "daov5.metademocracia.testnet", "metademocracia.testnet"]'' }' --accountId daov5.metademocracia.testnet
+
+
+
+
+near call daov5.metademocracia.testnet set_admin '{"user_id": "pruaab.testnet"}' --accountId daov5.metademocracia.testnet
+near call daov5.metademocracia.testnet set_admin '{"user_id": "28998217ed396e04798eea0849a9e519bb698753f320f5be372d3f881f30a844"}' --accountId daov5.metademocracia.testnet
+
+
+
+near call daov5.metademocracia.testnet set_proposal '{"data": { "title": "primera propuesta", "description": "probando la propuesta de transferencia de fondos", "proponent": "hpalencia.testnet", "kind": { "Transfer": { "token_id": null, "receiver_id": "hpalencia.testnet", "amount": "1000000000000000000000000" } }, "link": "https://link" } }' --accountId hpalencia.testnet --deposit 1 --gas 300000000000000
+
+near call daov5.metademocracia.testnet set_proposal '{"data": "1",  }' --accountId daov5.metademocracia.testnet --deposit 1
+
+near call daov5.metademocracia.testnet prueba --accountId daov5.metademocracia.testnet --gas 300000000000000
+
+
+near call daov5.metademocracia.testnet prueba --accountId hpalencia.testnet --gas 300000000000000
+
+
+
+near call daov5.metademocracia.testnet set_proposal '{"data": { "title": "propuesta", "description": "probando la propuesta de transferencia de fondos", "proponent": "hpalencia.testnet", "kind": { "Transfer": { "token_id": null, "receiver_id": "hpalencia.testnet", "amount": "1000000000000000000000000" } }, "link": "https://link" } }' --accountId hpalencia.testnet --deposit 1 --gas 300000000000000
+
+near call daov5.metademocracia.testnet update_proposal '{"id": 1, "action": "VoteApprove"}' --accountId hpalencia.testnet --deposit 1 --gas 300000000000000
+
+near view daov5.metademocracia.testnet get_locked_storage_amount
+
+near view daov5.metademocracia.testnet get_locked_amount
+
+
+
+
+------------------------------------------- nft -------------------------------------------------------------------------------- 
+
+near delete nftv3.metademocracia.testnet metademocracia.testnet
+near create-account nftv3.metademocracia.testnet --masterAccount metademocracia.testnet --initialBalance 20
+
+cargo build --target wasm32-unknown-unknown --release
+near deploy --wasmFile target/wasm32-unknown-unknown/release/meta_democracia.wasm --accountId nftv3.metademocracia.testnet
+
+
+near call nftv3.metademocracia.testnet new_default_meta '{"owner_id": "nftv3.metademocracia.testnet", "vault_id": "nftv3.metademocracia.testnet"}' --accountId nftv3.metademocracia.testnet
+
+
+near call nftv3.metademocracia.testnet update_tasa '{"tasa": 2.13}' --accountId nftv3.metademocracia.testnet
+
+near call nftv3.metademocracia.testnet nft_series '{"token_metadata":{"title": "Membresía", "description": "Membresía metademocracia", "media": "https://bafybeicgaadzyolgrb62sn2oexyel4vfluk6st42yq5d5nmbo3e4ltu7i4.ipfs.w3s.link/Capture.PNG", "reference": "1"}, "price": 1, "royalty":{"daov5.metademocracia.testnet": 1000} }' --accountId nftv3.metademocracia.testnet --depositYocto 10910000000000000000000
+
+near call nftv3.metademocracia.testnet nft_mint '{"token_series_id": "1", "receiver_id": "hpalencia.testnet"}' --accountId nftv3.metademocracia.testnet --depositYocto 8630000000000000000000
+
+near call nftv3.metademocracia.testnet nft_mint '{"token_series_id": "1", "receiver_id": "pruaab.testnet"}' --accountId nftv3.metademocracia.testnet --depositYocto 9490000000000000000000
+
+near call nftv3.metademocracia.testnet nft_mint '{"token_series_id": "1", "receiver_id": "5d18671d5948cd3348ff4fe4578518ed25a77ee73d18e4ee2b21b335d1585df7"}' --accountId nftv3.metademocracia.testnet --depositYocto 9490000000000000000000
+
+near call nftv3.metademocracia.testnet nft_mint '{"token_series_id": "1", "receiver_id": "metademocracia2023.testnet"}' --accountId nftv3.metademocracia.testnet --depositYocto 9490000000000000000000
+
+near call nftv3.metademocracia.testnet nft_mint '{"token_series_id": "1", "receiver_id": "pruebas42.testnet"}' --accountId nftv3.metademocracia.testnet --depositYocto 9490000000000000000000
+
+near call nftv3.metademocracia.testnet nft_mint '{"token_series_id": "1", "receiver_id": "prueba88.testnet"}' --accountId nftv3.metademocracia.testnet --depositYocto 9490000000000000000000
+
+near call nftv3.metademocracia.testnet nft_mint '{"token_series_id": "1", "receiver_id": "prueba90.testnet"}' --accountId nftv3.metademocracia.testnet --depositYocto 9490000000000000000000
+
+near call nftv3.metademocracia.testnet nft_mint '{"token_series_id": "1", "receiver_id": "e4bf5cd745892137e6ee997579953b51200a4f3714cf15804dca8f40f3117b63"}' --accountId nftv3.metademocracia.testnet --depositYocto 9570000000000000000000
+
+near call nftv3.metademocracia.testnet nft_mint '{"token_series_id": "1", "receiver_id": "daov5.metademocracia.testnet"}' --accountId nftv3.metademocracia.testnet --depositYocto 9490000000000000000000
+
+near call nftv3.metademocracia.testnet nft_mint '{"token_series_id": "1", "receiver_id": "28998217ed396e04798eea0849a9e519bb698753f320f5be372d3f881f30a844"}' --accountId nftv3.metademocracia.testnet --depositYocto 9570000000000000000000
+
+
+
+near call nftv3.metademocracia.testnet nft_mint '{"token_series_id": "1", "receiver_id": "metademocracia.testnet"}' --accountId nftv3.metademocracia.testnet --depositYocto 9490000000000000000000
+near call nftv3.metademocracia.testnet nft_mint '{"token_series_id": "1", "receiver_id": "merchant2023.testnet"}' --accountId nftv3.metademocracia.testnet --depositYocto 9490000000000000000000
+
+
+
+
+near view nftv3.metademocracia.testnet is_member '{"account_id": "pruaab.testnet"}'
+
+near view nftv3.metademocracia.testnet is_member '{"account_id": "pruaab.testnet"}' --accountId nftv3.metademocracia.testnet
+
+near view nftv3.metademocracia.testnet nft_total_supply
+
+
+near view nftv2.metademocracia.testnet is_member '{"account_id": "pruaab.testnet"}'
+near view nftv2.metademocracia.testnet nft_total_supply
+near call nftv2.metademocracia.testnet nft_mint '{"token_series_id": "1", "receiver_id": "data2.testnet"}' --accountId nftv2.metademocracia.testnet --depositYocto 9490000000000000000000
+
+
+
+
+
