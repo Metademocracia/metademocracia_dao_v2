@@ -61,7 +61,7 @@ near view factoryv4.metademocracia.testnet get_contracts_metadata
 
 echo "Upgrade V3 CODE HASH: $V2_CODE_HASH"
 
-near call pruebas12.factoryv4.metademocracia.testnet add_proposal '{"proposal": {"title": "actualizacion", "description": "Upgrade to v3", "kind": { "UpgradeSelf": { "hash": "7Xsq69eZZHS143T9iDakYF7CsWS1grjgrNXFFuZ2xVAx" } }, "link": "" } }' --accountId hpalencia.testnet --depositYocto 200000000000000000000000
+near call pruebas12.factoryv4.metademocracia.testnet add_proposal '{"proposal": {"title": "actualizacion", "description": "Upgrade to v3", "kind": { "UpgradeSelf": { "hash": "'$V2_CODE_HASH'" } }, "link": "" } }' --accountId hpalencia.testnet --depositYocto 200000000000000000000000
 
 
 
@@ -73,10 +73,10 @@ echo "Dev Factory Deploy & Test Complete"
 
 
 
-near deploy factoryv4.metademocracia.testnet target/wasm32-unknown-unknown/release/metadao_factory.wasm --force
+# near deploy factoryv4.metademocracia.testnet target/wasm32-unknown-unknown/release/metadao_factory.wasm --force
 
-near call factoryv4.metademocracia.testnet pruebas '{"commit_id": "596f27a649c5df3310e945a37a41a957492c0322"}' --accountId factoryv4.metademocracia.testnet --gas 100000000000000
+# near call factoryv4.metademocracia.testnet pruebas '{"commit_id": "596f27a649c5df3310e945a37a41a957492c0322"}' --accountId factoryv4.metademocracia.testnet --gas 100000000000000
 
-near call factoryv4.metademocracia.testnet insert_dao_list '{"account_id": "pruebas12.factoryv4.metademocracia.testnet"}' --accountId factoryv4.metademocracia.testnet
+# near call factoryv4.metademocracia.testnet insert_dao_list '{"account_id": "pruebas12.factoryv4.metademocracia.testnet"}' --accountId factoryv4.metademocracia.testnet
 
-near view factoryv4.metademocracia.testnet get_dao_list
+# near view factoryv4.metademocracia.testnet get_dao_list
