@@ -31,6 +31,10 @@ impl Contract {
         env!("CARGO_PKG_VERSION").to_string()
     }
 
+    pub fn version2(&self) -> String {
+        "si actuealizo".to_string()
+    }
+
     pub fn get_supply(&self) -> (u64, u64) {
         (self.total_proposal, self.active_proposal)
     }

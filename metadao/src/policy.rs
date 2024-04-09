@@ -465,7 +465,7 @@ impl Policy {
             );
             // Check if there is anything voted above the threshold specified by policy for given role.
             let vote_counts = proposal.vote_counts.get(&role).unwrap_or(&[0u128; 3]);
-            if vote_counts[Vote::Approve as usize] >= threshold {
+            if vote_counts[Vote::Approve as usize] >= threshold {    
                 return ProposalStatus::Approved;
             } else if vote_counts[Vote::Reject as usize] >= threshold {
                 return ProposalStatus::Rejected;

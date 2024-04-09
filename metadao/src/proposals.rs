@@ -443,7 +443,8 @@ impl Contract {
                     GAS_FOR_FT_TRANSFER,
                 ))
                 .into(),
-            PromiseOrValue::Value(()) => self.internal_return_bonds(&policy, &proposal).into(),
+            PromiseOrValue::Value(()) => self.internal_return_bonds(&policy, &proposal).into()
+            ,
         }
     }
 
@@ -462,7 +463,15 @@ impl Contract {
                     .insert(&bounty_id, &VersionedBounty::Default(bounty));
             }
         }
+
+        /*if !matches!(
+            proposal.status, ProposalStatus::Approved
+        ) {
+            self.active_proposal -= 1;
+        }*/
+        
         proposal.status = ProposalStatus::Approved;
+        
         self.internal_return_bonds(&policy, &proposal).into()
     }
 
@@ -504,6 +513,7 @@ impl Contract {
         }
     }
 }
+
 
 #[near_bindgen]
 impl Contract {
@@ -588,6 +598,12 @@ impl Contract {
     /// Memo is logged but not stored in the state. Can be used to leave notes or explain the action.
     pub fn act_proposal(&mut self, id: u64, action: Action, memo: Option<String>) {
         let mut proposal: Proposal = self.proposals.get(&id).expect("ERR_NO_PROPOSAL").into();
+        let mut update_proposal_actives: bool = true;
+        
+        if matches!(proposal.status.clone(), ProposalStatus::Approved) {
+            update_proposal_actives = false;
+        }
+
         let policy = self.policy.get().unwrap().to_policy();
         // Check permissions for the given action.
         let (roles, allowed) =
@@ -688,12 +704,15 @@ impl Contract {
             Action::MoveToHub => false,
         };
         if update {
-            if !matches!(
-                proposal.status,
-                ProposalStatus::InProgress | ProposalStatus::Failed
-            ) {
+            if matches!(proposal.status, ProposalStatus::Approved) && update_proposal_actives {
                 self.active_proposal -= 1;
             }
+            /* if !matches!(
+                proposal.status,
+                ProposalStatus::InProgress
+            ) {
+                self.active_proposal -= 1;
+            } */
 
             env::log_str(
                 &json!({
@@ -738,12 +757,12 @@ impl Contract {
             PromiseResult::Failed => self.internal_callback_proposal_fail(&mut proposal),
         };
 
-        if !matches!(
+        /* if !matches!(
             proposal.status,
             ProposalStatus::InProgress | ProposalStatus::Failed
         ) {
             self.active_proposal -= 1;
-        }
+        } */
 
         env::log_str(
             &json!({

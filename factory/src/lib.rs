@@ -17,7 +17,7 @@ const FACTORY_OWNER_KEY: &[u8; 5] = b"OWNER";
 const CODE_METADATA_KEY: &[u8; 8] = b"METADATA";
 
 // The values used when writing initial data to the storage.
-const DAO_CONTRACT_INITIAL_CODE: &[u8] = include_bytes!("../res/metadao_dao_v1.wasm");
+const DAO_CONTRACT_INITIAL_CODE: &[u8] = include_bytes!("../res/metadao_dao_v3.wasm");
 const DAO_CONTRACT_INITIAL_VERSION: Version = [3, 0];
 const DAO_CONTRACT_NO_DATA: &str = "no data";
 
@@ -56,9 +56,9 @@ impl MetadaoDAOFactory {
         let this = Self {
             factory_manager: FactoryManager {},
             daos: UnorderedSet::new(b"d".to_vec()),
-            //wallet_fee: AccountId::new_unchecked("hpalencia.testnet".to_string()),
+            wallet_fee: AccountId::new_unchecked("hpalencia.testnet".to_string()),
             //wallet_fee: AccountId::new_unchecked("metademocracia_dao.near".to_string()),
-            wallet_fee: AccountId::new_unchecked("organizacion.near".to_string()),
+            // wallet_fee: AccountId::new_unchecked("organizacion.near".to_string()),
             fee_metadao: U128(1000000000000000000000000),
             storage_deposit: U128(8000000000000000000000000)
         };
@@ -77,6 +77,23 @@ impl MetadaoDAOFactory {
             DaoContractMetadata {
                 version: DAO_CONTRACT_INITIAL_VERSION,
                 commit_id: String::from(DAO_CONTRACT_NO_DATA),
+                changelog_url: None,
+            },
+            true,
+        );
+    }
+
+    pub fn pruebas(&mut self, commit_id: String) {
+        self.assert_owner();
+        let code = DAO_CONTRACT_INITIAL_CODE.to_vec();
+        let sha256_hash = env::sha256(&code);
+        env::storage_write(&sha256_hash, &code);
+
+        self.store_contract_metadata(
+            slice_to_hash(&sha256_hash),
+            DaoContractMetadata {
+                version: DAO_CONTRACT_INITIAL_VERSION,
+                commit_id: commit_id.clone(),
                 changelog_url: None,
             },
             true,
@@ -163,6 +180,14 @@ impl MetadaoDAOFactory {
             "on_create",
             &callback_args,
         );
+    }
+
+    pub fn insert_dao_list(
+        &mut self,
+        account_id: AccountId,
+    ) {
+        self.assert_owner();
+        self.daos.insert(&account_id.clone());
     }
 
     #[private]

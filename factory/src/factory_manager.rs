@@ -76,7 +76,7 @@ impl FactoryManager {
             method_name,
             &code,
             NO_DEPOSIT,
-            env::prepaid_gas() - env::used_gas() - GAS_UPDATE_LEFTOVER,
+            GAS_UPDATE_LEFTOVER, // env::prepaid_gas() - env::used_gas() - GAS_UPDATE_LEFTOVER,
         );
         env::promise_return(promise_id);
     }

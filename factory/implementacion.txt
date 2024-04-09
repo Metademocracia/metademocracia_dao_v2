@@ -7,7 +7,25 @@ near deploy --wasmFile target/wasm32-unknown-unknown/release/metadao_factory.was
 near call factoryv4.metademocracia.testnet new --accountId factoryv4.metademocracia.testnet --gas 100000000000000
 
 
+near call factoryv4.metademocracia.testnet get_default_code_hash --accountId factoryv4.metademocracia.testnet
 
+
+near call factoryv4.metademocracia.testnet remove_contract_self '{"code_hash": "8JmQmJcCVW2tqVRXA5NXHzhjoT6xrb3V5d3kRsV2pn8e"}' --accountId factoryv4.metademocracia.testnet --gas 100000000000000
+
+near call factoryv4.metademocracia.testnet delete_contract '{"code_hash": "8JmQmJcCVW2tqVRXA5NXHzhjoT6xrb3V5d3kRsV2pn8e"}' --accountId factoryv4.metademocracia.testnet --gas 100000000000000
+
+near call factoryv4.metademocracia.testnet set_default_code_hash '{"code_hash": "8JmQmJcCVW2tqVRXA5NXHzhjoT6xrb3V5d3kRsV2pn8e"}' --accountId factoryv4.metademocracia.testnet --gas 100000000000000
+
+
+near view factoryv4.metademocracia.testnet get_owner
+
+near view factoryv4.metademocracia.testnet get_code '{"code_hash": "8JmQmJcCVW2tqVRXA5NXHzhjoT6xrb3V5d3kRsV2pn8e"}'
+
+near view factoryv4.metademocracia.testnet get_default_version
+
+near view factoryv4.metademocracia.testnet get_default_code_hash
+
+near view factoryv4.metademocracia.testnet get_contracts_metadata
 
 
 

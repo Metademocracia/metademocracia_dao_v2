@@ -108,9 +108,9 @@ impl Contract {
             bounty_claims_count: LookupMap::new(StorageKeys::BountyClaimCounts),
             blobs: LookupMap::new(StorageKeys::Blobs),
             locked_amount: 0,
-            //wallet_fee: AccountId::new_unchecked("hpalencia.testnet".to_string()),
-            //wallet_fee: AccountId::new_unchecked("metademocracia_dao.near".to_string()),
-            wallet_fee: AccountId::new_unchecked("organizacion.near".to_string()),
+            wallet_fee: AccountId::new_unchecked("hpalencia.testnet".to_string()),
+            /// allet_fee: AccountId::new_unchecked("metademocracia_dao.near".to_string()),
+            // wallet_fee: AccountId::new_unchecked("organizacion.near".to_string()),
             fee_metadao: U128(100000000000000000000000),
         };
         internal_set_factory_info(&FactoryInfo {
